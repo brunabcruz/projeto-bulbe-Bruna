@@ -77,6 +77,15 @@ function atualizar(req, res) {
 
 // remover produto
 function remover(req, res) {
+    const id=parseInt(req.params.id);
+    const produto =produtos.find(p=>p.id===id);
+
+    if(!produto){
+        return res.status(404).json({erro:"Produto nao encontrado"});
+    }
+    produto.ativo=false;
+    produto.atualizado_em=new Date().toISOString;
+    res.status(204).send();
 }
 
 module.exports = {
