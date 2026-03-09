@@ -4,6 +4,7 @@ let nextId = 1;
 
 // listar todos os produtos
 function listar(req, res) {
+    res.status(200).json(produtos);
 }
 
 // buscar produto por ID
