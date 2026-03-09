@@ -9,7 +9,7 @@ function listar(req, res) {
 
 // buscar produto por ID
 function buscarPorId(req, res) {
-    const id = parseInt(res.params.id); //pegar url e transformar em numero
+    const id = parseInt(req.params.id);//pegar url e transformar em numero
     const produto = produtos.find(p=> p.id ===id);
     
     if(!produto){ //se nao existir
@@ -25,10 +25,10 @@ function criar(req, res) {
     const {nome, descricao, preco, categoria,estoque} = req.body;
     
     if(!nome){
-        return res.status(400).json({erro: "O campo 'nome' eh obrigatorio", campo: "mome"});
+        return res.status(400).json({erro: "O campo 'nome' eh obrigatorio", campo: "nome"});
     }
     if(!descricao){
-        return res.status(400).json({erro: "O campo 'descricao eh obrigatorio", campo: "descricao"})
+        return res.status(400).json({erro: "O campo 'descricao' eh obrigatorio", campo: "descricao"})
     }
     if(preco==undefined){
         return res.status(400).json({erro:"O campo 'preco eh obrigatorio", campo: "preco"})
@@ -58,18 +58,18 @@ function criar(req, res) {
 // atualizar produto
 function atualizar(req, res) {
     const id= parseInt(req.params.id);
-    const produtos=produtos.find(p=>p.id === id);
+    const produto=produtos.find(p=>p.id === id);
 
     if(!produtos){
         return res.status(404).json({erro:"Produto nao encontrado"});
     }
-    const {nome, descrocao, preco, categoria, estoque}= req.body;
+    const {nome, descricao, preco, categoria, estoque}= req.body;
 
-    if(nome!==undefined)produtos.nome=nome;
-    if(descricao!==undefined)produtos.descricao=descricao;
-    if(preco!==undefined)produtos.preco=preco;
-    if(categoria!==undefined)produtos.categoria=categoria;
-    if (estoque !== undefined) produtos.estoque = estoque;
+    if(nome!==undefined)produto.nome=nome;
+    if(descricao!==undefined)produto.descricao=descricao;
+    if(preco!==undefined)produto.preco=preco;
+    if(categoria!==undefined)produto.categoria=categoria;
+    if (estoque !== undefined) produto.estoque = estoque;
 
     produtos.atualizado_em = new Date().toISOString();
     res.json(produtos);
@@ -84,7 +84,7 @@ function remover(req, res) {
         return res.status(404).json({erro:"Produto nao encontrado"});
     }
     produto.ativo=false;
-    produto.atualizado_em=new Date().toISOString;
+    produto.atualizado_em = new Date().toISOString();
     res.status(204).send();
 }
 
