@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express'); //importa a express
+const router = express.Router(); //cria um route e organiza as aplicacoes
 
-const produtosController = require('../controllers/produtosController');
+const produtosController = require('../controllers/produtosController'); //executa a logica da API
 
 router.get('/', produtosController.listar);
 
