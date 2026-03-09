@@ -58,7 +58,7 @@ function criar(req, res) {
 // atualizar produto
 function atualizar(req, res) {
     const id= parseInt(req.params.id);
-    const produto=produtos.find(p=>p.id === id);
+    const produto=produtos.findIndex(p=>p.id === id);
 
     if(!produtos){
         return res.status(404).json({erro:"Produto nao encontrado"});
@@ -71,20 +71,19 @@ function atualizar(req, res) {
     if(categoria!==undefined)produto.categoria=categoria;
     if (estoque !== undefined) produto.estoque = estoque;
 
-    produtos.atualizado_em = new Date().toISOString();
-    res.json(produtos);
+    produtos[index].atualizado_em = new Date().toISOString();
+    res.status(200).json(produtos[index]);
 }
 
 // remover produto
 function remover(req, res) {
     const id=parseInt(req.params.id);
-    const produto =produtos.find(p=>p.id===id);
+    const index =produtos.findIndex(p=>p.id===id);
 
-    if(!produto){
+    if(index === -1){
         return res.status(404).json({erro:"Produto nao encontrado"});
     }
-    produto.ativo=false;
-    produto.atualizado_em = new Date().toISOString();
+    produto.splice(index,1)
     res.status(204).send();
 }
 
