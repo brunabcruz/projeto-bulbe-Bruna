@@ -51,12 +51,28 @@ function criar(req, res) {
         criado_em: new Date().toISOString(),
         atualizado_em: new Date().toISOString()
     }
-    produto.push(novoProduto);
+    produtos.push(novoProduto);
     res.status(201).json(novoProduto);
 }
 
 // atualizar produto
 function atualizar(req, res) {
+    const id= parseInt(req.params.id);
+    const produtos=produtos.find(p=>p.id === id);
+
+    if(!produtos){
+        return res.status(404).json({erro:"Produto nao encontrado"});
+    }
+    const {nome, descrocao, preco, categoria, estoque}= req.body;
+
+    if(nome!==undefined)produtos.nome=nome;
+    if(descricao!==undefined)produtos.descricao=descricao;
+    if(preco!==undefined)produtos.preco=preco;
+    if(categoria!==undefined)produtos.categoria=categoria;
+    if (estoque !== undefined) produtos.estoque = estoque;
+
+    produtos.atualizado_em = new Date().toISOString();
+    res.json(produtos);
 }
 
 // remover produto
