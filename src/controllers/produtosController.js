@@ -9,6 +9,15 @@ function listar(req, res) {
 
 // buscar produto por ID
 function buscarPorId(req, res) {
+    const id = parseInt(res.params.id); //pegar url e transformar em numero
+    const produto = produtos.find(p=> p.id ===id);
+    
+    if(!produto){ //se nao existir
+        return res.status(404).json({
+            erro: "Produto nao encontrado"
+        });
+    }
+    res.status(200).json(produto); //quando produto encontrado
 }
 
 // criar novo produto
